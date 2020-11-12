@@ -51,7 +51,7 @@ Ao clicar em "CANCELAR" o app deverá voltar para a tela do cardápio.
   <th>Extrato</th>
 </tr>
 <tr>
-  <td><img src="https://github.com/ped-imply/teste-desenvolvedor-android/blob/master/imagens/extrato.png?raw=true" ></td>
+  <td><img src="https://github.com/ped-imply/teste-desenvolvedor-android/blob/master/imagens/extrato.png?raw=true" height="600" width="400" ></td>
 </tr>
 </tbody>
 </table>
