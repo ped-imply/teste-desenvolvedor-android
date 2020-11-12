@@ -58,7 +58,7 @@ Ao clicar em "CANCELAR" o app deverá voltar para a tela do cardápio.
 
 ## Você ganhará pontos extras se:
 
-- Implementar algum tipo de arquitetura, pode ser (mvc, mvp, mvvm, clean etc)
+- Implementar algum tipo de arquitetura, pode ser (mvc, mvp, mvvm...)
 - Desenvolver testes unitários
 - Fazer commits claros, evidenciando o que realmente foi desenvolvido, pois seu código será revisado e validado por nossa equipe de desenvolvedores
 
