@@ -10,7 +10,7 @@ Você deverá desenvolver duas telas, que serão descritas na sequência. Para d
 
 #### <i class="icon-folder-open"></i> Tela Cardápio (principal)
 
-Nesta tela teremos um cardápio com os produtos que você obterá consultando o endpoint https://ah.we.imply.com/cashless/produtos através do método de requisição http "GET". Cada produto terá sua categoria, estás categorias devem ser separadas por "tabs". No "card" de cada produto deverá ter a descrição do produto, a imagem e o valor. Ao clicar sobre um produto, deverá ser incrementado a quantidade, atualizado o valor total da compra e a quantidade de itens. Ao clicar no botão "LIMPAR" o valor total e a quantidade são resetados e ao clicar em "CONFIRMAR" o app deverá chamar a tela do extrato que será explicada a seguir.
+Nesta tela teremos um cardápio com os produtos que você obterá consultando o endpoint https://ah.we.imply.com/cashless/produtos através do método de requisição http "GET". Cada produto terá sua categoria, estás categorias devem ser separadas por "tabs". No "card" de cada produto deverá ter a descrição do produto, a imagem (vem junto em base64 na consulta) e o valor. Ao clicar sobre um produto, deverá ser incrementado a quantidade, atualizado o valor total da compra e a quantidade de itens. Ao clicar no botão "LIMPAR" o valor total e a quantidade são resetados e ao clicar em "CONFIRMAR" o app deverá chamar a tela do extrato que será explicada a seguir.
 
 #### <i class="icon-file"></i> Mockup da tela do cardápio
 
