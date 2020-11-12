@@ -10,7 +10,7 @@ Você deverá desenvolver duas telas, que serão descritas na sequência. Para d
 
 #### <i class="icon-folder-open"></i> Tela Cardápio (principal)
 
-Nesta tela teremos um cardápio com os produtos que você obterá consultando o endpoint https://ah.we.imply.com/cashless/produtos através do método de requisição http "GET". Cada produto terá sua categoria, estás categorias devem ser separadas por "tabs". No "card" de cada produto deverá ter a descrição do produto, a imagem (vem junto em base64 na consulta) e o valor. Ao clicar sobre um produto, deverá ser incrementado a quantidade, atualizado o valor total da compra e a quantidade de itens. Ao clicar no botão "LIMPAR" o valor total e a quantidade são resetados e ao clicar em "CONFIRMAR" o app deverá chamar a tela do extrato que será explicada a seguir.
+Nesta tela teremos um cardápio com os produtos que você obterá consultando o endpoint https://ah.we.imply.com/cashless/produtos através do método de requisição http "GET". Cada produto terá sua categoria, estás categorias devem ser separadas por "tabs". No "card" de cada produto deverá ter a descrição do produto, a imagem (vem junto em base64 na consulta) e o valor. Ao clicar sobre um produto, deverá ser incrementado a quantidade (veja na imagem "Cardápio (Categoria "BEBIDAS") com produto(s) selecionados"), atualizado o valor total da compra e a quantidade de itens. Ao clicar no botão "LIMPAR" o valor total e a quantidade são resetados e ao clicar em "CONFIRMAR" o app deverá chamar a tela do extrato que será explicada a seguir.
 
 #### <i class="icon-file"></i> Mockup da tela do cardápio
 
@@ -19,8 +19,8 @@ Nesta tela teremos um cardápio com os produtos que você obterá consultando o 
 <tr>
   <th>Cardápio (Categoria "BEBIDAS")</th>
   <th>Cardápio (Categoria "LANCHES")</th>
-  <th>Cardápio (Categoria "BEBIDAS") com itens selecionados</th>
-  <th>Cardápio (Categoria "LANCHES") com itens selecionados</th>
+  <th>Cardápio (Categoria "BEBIDAS") com produto(s) selecionados</th>
+  <th>Cardápio (Categoria "LANCHES") com produto(s) selecionados</th>
 </tr>
 <tr>
   <td><img src="https://github.com/ped-imply/teste-desenvolvedor-android/blob/master/imagens/cardapio01.png?raw=true" ></td>
@@ -59,7 +59,7 @@ Ao clicar em "CANCELAR" o app deverá voltar para a tela do cardápio.
 #### <i class="icon-folder-open"></i> Você ganhará pontos extras se:
 
 - Implementar algum tipo de arquitetura, pode ser (mvc, mvp, mvvm, clean etc)
-- Desenvolver Testes unitários
+- Desenvolver testes unitários
 - Fazer commits claros, evidenciando o que realmente foi desenvolvido, pois seu código será revisado e validado por nossa equipe de desenvolvedores
 
 
