@@ -56,7 +56,7 @@ Ao clicar em "CANCELAR" o app deverá voltar para a tela do cardápio.
 </tbody>
 </table>
 
-#### <i class="icon-folder-open"></i> Você ganhará pontos extras se:
+## Você ganhará pontos extras se:
 
 - Implementar algum tipo de arquitetura, pode ser (mvc, mvp, mvvm, clean etc)
 - Desenvolver testes unitários
