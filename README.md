@@ -12,7 +12,7 @@ Você deverá desenvolver duas telas, que serão descritas na sequência. Para d
 
 Nesta tela teremos um cardápio com os produtos que você obterá consultando o endpoint https://ah.we.imply.com/cashless/produtos através do método de requisição http "GET". Cada produto terá sua categoria, estás categorias devem ser separadas por "tabs". No "card" de cada produto deverá ter a descrição do produto, a imagem e o valor. Ao clicar sobre um produto, deverá ser incrementado a quantidade, atualizado o valor total da compra e a quantidade de itens. Ao clicar no botão "LIMPAR" o valor total e a quantidade são resetados e ao clicar em "CONFIRMAR" o app deverá chamar a tela do extrato que será explicada a seguir.
 
-#### <i class="icon-file"></i> Mockup que deve ser seguido
+#### <i class="icon-file"></i> Mockup da tela do cardápio
 
 <table>
 <tbody>
@@ -44,8 +44,7 @@ Nesta tela deverá ter uma tabela, com as seguintes colunas: "Item" (descrição
 
 Ao clicar em "CANCELAR" o app deverá voltar para a tela do cardápio.
 
-#### <i class="icon-file"></i> Mockup que deve ser seguido
-
+#### <i class="icon-file"></i> Mockup da tela do extrato
 <table>
 <tbody>
 <tr>
@@ -61,6 +60,8 @@ Ao clicar em "CANCELAR" o app deverá voltar para a tela do cardápio.
 
 - Implementar de algum tipo de arquitetura, pode ser (mvc, mvp, mvvm, clean etc)
 - Desenvolver Testes unitários
+- Fazer commits claros, evidenciando o que realmente foi desenvolvido, pois seu código será revisado e validado por nossa equipe de desenvolvedores
+
 
 ## Publicação
 
