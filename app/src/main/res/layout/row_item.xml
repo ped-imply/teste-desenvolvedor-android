@@ -18,8 +18,7 @@
             android:id="@+id/ImageViewItem"
             android:layout_width="128dp"
             android:layout_height="128dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/LabelItemDescription"

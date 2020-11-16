@@ -72,7 +72,7 @@ public class CardapioActivity extends AppCompatActivity {
     public void updateLabelCart() {
         if (itens.isEmpty())
             labelCart.setText(String.format("%s  | %s",
-                    Formatters.currencyFormat(new BigDecimal(0)), "0 itens"));
+                    Formatters.currencyFormat(null), "0 itens"));
 
         else
             labelCart.setText(String.format("%s  | %s itens",
