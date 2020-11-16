@@ -12,11 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".Extrato"
-            android:label="@string/activity_extrato"></activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:name=".CardapioActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MyApplication.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ExtratoActivity"
+            android:label="@string/activity_extrato"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Cardápio</string>
+    <string name="app_name">Cashless</string>
+    <string name="activity_cardapio">Cardápio</string>
+    <string name="activity_extrato">Extrato</string>
     <string name="tab_text_1">Bebidas</string>
     <string name="tab_text_2">Lanches</string>
-
-    <string name="activity_extrato">Extrato</string>
 
     <string name="label_total_caps">TOTAL</string>
 
@@ -12,4 +12,6 @@
     <string name="button_clear">Limpar</string>
     <string name="button_confirm">Confirmar</string>
     <string name="button_cancel">Cancelar</string>
+    <string name="toast_success">Registro(s) inserido(s) com sucesso</string>
+    <string name="toast_empty_cart">Nenhum item do Cardápio foi selecionado</string>
 </resources>
