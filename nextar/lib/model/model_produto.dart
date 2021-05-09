@@ -4,19 +4,22 @@ import 'package:flutter/material.dart';
 
 class Produto {
   Produto(
-      {@required String descricaoProduto,
+      {@required int idUser,
+      @required String descricaoProduto,
       var preco,
       int quantidadeEstoque,
       @required String codigo,
       @required String dataCriacao,
       Uint8List imagem})
-      : this._descricaoProduto = descricaoProduto,
+      : this._idUsuario = idUser,
+        this._descricaoProduto = descricaoProduto,
         this._preco = preco,
         this._quantidadeEstoque = quantidadeEstoque,
         this._codigo = codigo,
         this._dataCriacao = dataCriacao,
         this._imagem = imagem;
 
+  int _idUsuario;
   String _descricaoProduto;
   var _preco;
   int _quantidadeEstoque;
@@ -43,6 +46,7 @@ class Produto {
     } else {
       Map<String, dynamic> map = Map();
 
+      map['idUsuario'] = this._idUsuario;
       map['descricaoProduto'] = this._descricaoProduto;
       map['preco'] = this._preco;
       map['quantidade'] = this._quantidadeEstoque;
@@ -55,6 +59,7 @@ class Produto {
   }
 
   Produto.fromJson(Map<String, dynamic> json) {
+    this._idUsuario = json['id_usuario'];
     this._descricaoProduto = json['descricaoProduto'];
     this._preco = json['preco'];
     this._quantidadeEstoque = json['quantidade'];
@@ -63,6 +68,7 @@ class Produto {
     this._imagem = json['imagem_produto'];
   }
 
+  get idUsuario => this._idUsuario;
   get descricaoProduto => this._descricaoProduto;
   get preco => this._preco;
   get quantidadeEstoque => this._quantidadeEstoque;
