@@ -83,7 +83,23 @@ class DatabaseHelper {
 
   Future<int> insertProduto({@required Map<String, dynamic> row}) async {
     Database db = await instance.database;
-    return await db.insert(_tableProdutos, row);
+    return await db.rawInsert('''INSERT INTO $_tableProdutos(
+          $_columnFkIdUsuario, 
+          $_columnDescricaoProduto, 
+          $_columnPreco, 
+          $_columnQuantidade, 
+          $_columnCodigo,
+          $_columnDataCriacao,
+          $_columnImagemProduto) 
+        VALUES(?, ?, ?, ?, ?, ?, ?)''', [
+      row['idUsuario'],
+      row['descricaoProduto'],
+      row['preco'],
+      row['quantidadeEstoque'],
+      row['codigo'],
+      row['data_criacao'],
+      row['imagem_produto']
+    ]);
   }
 
   // seleciona o usuário desejado
