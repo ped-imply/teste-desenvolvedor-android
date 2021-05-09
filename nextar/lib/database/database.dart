@@ -9,14 +9,14 @@ class DatabaseHelper {
   static final _databaseVersion = 2;
 
   static final _tableUsuarios = 'Usuarios';
-  static final _columnIdUsuario = 'id';
+  static final _columnIdUsuario = 'id_usuario';
   static final _columnUsuario = 'usuario';
   static final _columnCpf = 'cpf';
   static final _columnToken = 'token';
 
   static final _tableProdutos = 'Produtos';
   static final _columnFkIdUsuario = 'id_usuario';
-  static final _columnIdProduto = 'id';
+  static final _columnIdProduto = 'id_produto';
   static final _columnDescricaoProduto = 'descricaoProduto';
   static final _columnPreco = 'preco';
   static final _columnQuantidade = 'quantidade';
@@ -66,7 +66,7 @@ class DatabaseHelper {
             $_columnCodigo VARCHAR(40) NOT NULL,
             $_columnImagemProduto BLOB,
             $_columnDataCriacao VARCHAR(20) NOT NULL,
-            FOREIGN KEY (id_usuario) REFERENCES Usuarios (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+            FOREIGN KEY (id_usuario) REFERENCES Usuarios (id_usuario) ON DELETE NO ACTION ON UPDATE NO ACTION
           )
           ''');
   }
@@ -92,14 +92,20 @@ class DatabaseHelper {
           $_columnDataCriacao,
           $_columnImagemProduto) 
         VALUES(?, ?, ?, ?, ?, ?, ?)''', [
-      row['idUsuario'],
-      row['descricaoProduto'],
-      row['preco'],
-      row['quantidadeEstoque'],
-      row['codigo'],
-      row['data_criacao'],
-      row['imagem_produto']
+      row[_columnIdUsuario],
+      row[_columnDescricaoProduto],
+      row[_columnPreco],
+      row[_columnQuantidade],
+      row[_columnCodigo],
+      row[_columnDataCriacao],
+      row[_columnImagemProduto]
     ]);
+  }
+
+  Future<int> deleteProduto({@required String codigoProduto}) async {
+    Database db = await instance.database;
+    return await db.delete(_tableProdutos,
+        where: 'codigo = ?', whereArgs: [codigoProduto]);
   }
 
   // seleciona o usuário desejado
@@ -113,6 +119,15 @@ class DatabaseHelper {
       List<String> whereArgs}) async {
     Database db = await instance.database;
     return await db.query(_tableUsuarios,
+        columns: columns, where: where, whereArgs: whereArgs);
+  }
+
+  Future<List<Map<String, dynamic>>> selectProdutos(
+      {@required List<String> columns,
+      String where,
+      List<String> whereArgs}) async {
+    Database db = await instance.database;
+    return await db.query(_tableProdutos,
         columns: columns, where: where, whereArgs: whereArgs);
   }
 
@@ -141,17 +156,17 @@ class DatabaseHelper {
 
   // Assumimos aqui que a coluna cpf no mapa está definida. Os outros
   // valores das colunas serão usados para atualizar a linha.
-  Future<int> update({@required Map<String, dynamic> row}) async {
+  Future<int> updateUsuarios({@required Map<String, dynamic> row}) async {
     Database db = await instance.database;
     String cpf = row[_columnCpf];
     return await db.update(_tableUsuarios, row,
         where: '$_columnCpf = ?', whereArgs: [cpf]);
   }
 
-  // Exclui a linha especificada pelo id. O número de linhas afetadas é
-  // retornada. Isso deve ser igual a 1, contanto que a linha exista.
-  /*Future<int> delete(int id) async {
+  Future<int> updateProdutos({@required Map<String, dynamic> row}) async {
     Database db = await instance.database;
-    return await db.delete(_tableUsuarios, where: '$columnId = ?', whereArgs: [id]);
-  }*/
+    int idProduto = row[_columnIdProduto];
+    return await db.update(_tableProdutos, row,
+        where: '$_columnIdProduto = ?', whereArgs: [idProduto]);
+  }
 }

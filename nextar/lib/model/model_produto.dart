@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 
 class Produto {
   Produto(
-      {@required int idUser,
+      {int idProduto,
+      @required int idUser,
       @required String descricaoProduto,
       var preco,
       int quantidadeEstoque,
       @required String codigo,
       @required String dataCriacao,
       Uint8List imagem})
-      : this._idUsuario = idUser,
+      : this._idProduto = idProduto,
+        this._idUsuario = idUser,
         this._descricaoProduto = descricaoProduto,
         this._preco = preco,
         this._quantidadeEstoque = quantidadeEstoque,
@@ -19,6 +21,7 @@ class Produto {
         this._dataCriacao = dataCriacao,
         this._imagem = imagem;
 
+  int _idProduto;
   int _idUsuario;
   String _descricaoProduto;
   var _preco;
@@ -46,7 +49,8 @@ class Produto {
     } else {
       Map<String, dynamic> map = Map();
 
-      map['idUsuario'] = this._idUsuario;
+      map['id_produto'] = this._idProduto;
+      map['id_usuario'] = this._idUsuario;
       map['descricaoProduto'] = this._descricaoProduto;
       map['preco'] = this._preco;
       map['quantidade'] = this._quantidadeEstoque;
@@ -59,6 +63,7 @@ class Produto {
   }
 
   Produto.fromJson(Map<String, dynamic> json) {
+    this._idProduto = json['id_produto'];
     this._idUsuario = json['id_usuario'];
     this._descricaoProduto = json['descricaoProduto'];
     this._preco = json['preco'];
@@ -68,6 +73,7 @@ class Produto {
     this._imagem = json['imagem_produto'];
   }
 
+  get idProduto => this._idProduto;
   get idUsuario => this._idUsuario;
   get descricaoProduto => this._descricaoProduto;
   get preco => this._preco;

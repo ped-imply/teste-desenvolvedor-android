@@ -10,7 +10,7 @@ class ViewCadastroProdutos extends StatelessWidget {
   final TextEditingController _quantidadeEstoque = TextEditingController();
   final TextEditingController _codigo = TextEditingController();
 
-  final controllerCadastroProdutos = Get.find<ControllerCadastroProdutos>();
+  final _controllerCadastroProdutos = Get.find<ControllerCadastroProdutos>();
 
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
@@ -101,21 +101,33 @@ class ViewCadastroProdutos extends StatelessWidget {
                                                 color: Colors.red)))))
                           ],
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 20),
-                          width: _width / 4,
-                          height: _height / 4,
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(color: Colors.red),
-                                  left: BorderSide(color: Colors.red),
-                                  right: BorderSide(color: Colors.red),
-                                  top: BorderSide(color: Colors.red))),
-                          child: Center(
-                            child: Text(
-                              "Selecione uma imagem",
-                              style: TextStyle(color: Colors.redAccent),
-                            ),
+                        GestureDetector(
+                          onTap: () =>
+                              _controllerCadastroProdutos.obterImagemProduto(),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 20),
+                            width: _width / 4,
+                            height: _height / 4,
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(color: Colors.red),
+                                    left: BorderSide(color: Colors.red),
+                                    right: BorderSide(color: Colors.red),
+                                    top: BorderSide(color: Colors.red))),
+                            child: Obx(() => _controllerCadastroProdutos
+                                        .image.lengthInBytes ==
+                                    0
+                                ? Center(
+                                    child: Text(
+                                      "Selecione uma imagem",
+                                      style: TextStyle(color: Colors.redAccent),
+                                    ),
+                                  )
+                                : Container(
+                                    width: _width,
+                                    child: Image.memory(
+                                        _controllerCadastroProdutos.image),
+                                  )),
                           ),
                         ),
                         Center(
@@ -125,7 +137,7 @@ class ViewCadastroProdutos extends StatelessWidget {
                               onPressed:
                                   _descricaoProduto.text.trim().isNotEmpty &&
                                           _codigo.text.trim().isNotEmpty
-                                      ? () => controllerCadastroProdutos
+                                      ? () => _controllerCadastroProdutos
                                           .cadastrarProduto(
                                               _descricaoProduto.text,
                                               _preco.text,
@@ -231,25 +243,37 @@ class ViewCadastroProdutos extends StatelessWidget {
                                             BorderSide(color: Colors.red)))))
                       ],
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
-                      width: _width / 2,
-                      height: _height / 4,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(color: Colors.red),
-                              left: BorderSide(color: Colors.red),
-                              right: BorderSide(color: Colors.red),
-                              top: BorderSide(color: Colors.red))),
-                      child: Center(
-                        child: Container(
-                          width: _width,
-                          child: Text(
-                            "Selecione uma imagem",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.redAccent),
-                          ),
-                        ),
+                    GestureDetector(
+                      onTap: () =>
+                          _controllerCadastroProdutos.obterImagemProduto(),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 20),
+                        width: _width / 2,
+                        height: _height / 4,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(color: Colors.red),
+                                left: BorderSide(color: Colors.red),
+                                right: BorderSide(color: Colors.red),
+                                top: BorderSide(color: Colors.red))),
+                        child: Obx(() =>
+                            _controllerCadastroProdutos.image.lengthInBytes == 0
+                                ? Center(
+                                    child: Container(
+                                      width: _width,
+                                      child: Text(
+                                        "Selecione uma imagem",
+                                        textAlign: TextAlign.center,
+                                        style:
+                                            TextStyle(color: Colors.redAccent),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    width: _width,
+                                    child: Image.memory(
+                                        _controllerCadastroProdutos.image),
+                                  )),
                       ),
                     ),
                     Container(
@@ -257,7 +281,7 @@ class ViewCadastroProdutos extends StatelessWidget {
                       child: Center(
                         child: ElevatedButton(
                           onPressed: () =>
-                              controllerCadastroProdutos.cadastrarProduto(
+                              _controllerCadastroProdutos.cadastrarProduto(
                                   _descricaoProduto.text,
                                   _preco.text,
                                   _quantidadeEstoque.text,
@@ -360,25 +384,38 @@ class ViewCadastroProdutos extends StatelessWidget {
                                             BorderSide(color: Colors.red)))))
                       ],
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
-                      width: _width / 2,
-                      height: _height / 4,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(color: Colors.red),
-                              left: BorderSide(color: Colors.red),
-                              right: BorderSide(color: Colors.red),
-                              top: BorderSide(color: Colors.red))),
-                      child: Center(
-                        child: Container(
-                          width: _width,
-                          child: Text(
-                            "Selecione uma imagem",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.redAccent),
-                          ),
-                        ),
+                    GestureDetector(
+                      onTap: () =>
+                          _controllerCadastroProdutos.obterImagemProduto(),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 20),
+                        width: _width / 2,
+                        height: _height / 4,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(color: Colors.red),
+                                left: BorderSide(color: Colors.red),
+                                right: BorderSide(color: Colors.red),
+                                top: BorderSide(color: Colors.red))),
+                        child: Obx(() =>
+                            _controllerCadastroProdutos.image.lengthInBytes == 0
+                                ? Center(
+                                    child: Container(
+                                      width: _width,
+                                      child: Text(
+                                        "Selecione uma imagem",
+                                        textAlign: TextAlign.center,
+                                        style:
+                                            TextStyle(color: Colors.redAccent),
+                                      ),
+                                    ),
+                                  )
+                                : Center(
+                                    child: Container(
+                                        width: _width,
+                                        child: Image.memory(
+                                            _controllerCadastroProdutos.image)),
+                                  )),
                       ),
                     ),
                     Center(
@@ -388,7 +425,7 @@ class ViewCadastroProdutos extends StatelessWidget {
                           onPressed: _descricaoProduto.text.trim().isNotEmpty &&
                                   _codigo.text.trim().isNotEmpty
                               ? () =>
-                                  controllerCadastroProdutos.cadastrarProduto(
+                                  _controllerCadastroProdutos.cadastrarProduto(
                                       _descricaoProduto.text,
                                       _preco.text,
                                       _quantidadeEstoque.text,

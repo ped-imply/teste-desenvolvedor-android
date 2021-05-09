@@ -5,12 +5,9 @@ import 'package:Nextar/view/view_home.dart';
 import 'package:Nextar/view/view_recuperar_senha.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter/services.dart';
+import 'package:Nextar/view/view_editar_produtos.dart';
 
 void main() {
- // WidgetsFlutterBinding.ensureInitialized();
-  /*SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);*/
   runApp(GetMaterialApp(
     initialRoute: '/login',
     home: Principal(),
@@ -28,6 +25,10 @@ void main() {
       GetPage(
           name: '/cadastroProdutos',
           page: () => ViewCadastroProdutos(),
+          transition: Transition.zoom),
+      GetPage(
+          name: '/edicaoProdutos',
+          page: () => ViewEdicaoProdutos(),
           transition: Transition.zoom)
     ],
   ));

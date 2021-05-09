@@ -104,7 +104,7 @@ class ControllerCadastroUsuarios extends GetxController {
 
       final List<Map<String, dynamic>> _resposta =
           await _database.selectUsuarios(
-              columns: ['id', 'token'],
+              columns: ['id_usuario', 'token', 'usuario'],
               where: 'usuario = ?',
               whereArgs: [usuario]);
 
@@ -121,7 +121,8 @@ class ControllerCadastroUsuarios extends GetxController {
         // Se o token verificado for verdadeiro, concede o acesso
         if (_verificarToken) {
           _prefs.setString('token', _resposta[0]['token']);
-          _prefs.setInt('idUsuario', _resposta[0]['id']);
+          _prefs.setInt('idUsuario', _resposta[0]['id_usuario']);
+          _prefs.setString('usuario', _resposta[0]['usuario']);
           Get.toNamed('/principal');
         }
 
@@ -131,6 +132,15 @@ class ControllerCadastroUsuarios extends GetxController {
               'Dados divergentes. Por favor, verifique suas credenciais e tente novamente');
         }
       }
+    }
+  }
+
+  void verificarUsuarioLogado() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    String token = _prefs.getString('token');
+
+    if (token.isEmpty) {
+      Get.offAllNamed('/login');
     }
   }
 
@@ -158,7 +168,7 @@ class ControllerCadastroUsuarios extends GetxController {
         final String token = DBCrypt().hashpw(senha, DBCrypt().gensalt());
 
         final int senhaAtualizada =
-            await _database.update(row: {'cpf': cpf, 'token': token});
+            await _database.updateUsuarios(row: {'cpf': cpf, 'token': token});
 
         if (senhaAtualizada > 0) {
           Get.offAllNamed('/login');
