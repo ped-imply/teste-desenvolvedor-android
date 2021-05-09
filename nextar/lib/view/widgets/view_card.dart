@@ -8,18 +8,12 @@ class ViewCustomCard extends StatelessWidget {
   final Produto _produto;
 
   Widget build(BuildContext context) {
-    final _width = MediaQuery
-        .of(context)
-        .size
-        .height;
-    final _height = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final _width = MediaQuery.of(context).size.height;
+    final _height = MediaQuery.of(context).size.width;
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        if(constraints.maxWidth >= 900) {
+        if (constraints.maxWidth >= 900) {
           return Container(
             width: _width / 4,
             child: Card(
@@ -94,8 +88,7 @@ class ViewCustomCard extends StatelessWidget {
           );
         } else {
           return Container(
-            width: _width / 3.5,
-
+            width: _width / 4,
             child: Card(
               elevation: 5,
               child: GestureDetector(
@@ -118,7 +111,6 @@ class ViewCustomCard extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               _produto.descricaoProduto,
-
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -135,7 +127,6 @@ class ViewCustomCard extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               "Quantidade: ${_produto.quantidadeEstoque}",
-
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -143,7 +134,6 @@ class ViewCustomCard extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               "Código: ${_produto.codigo}",
-
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -153,7 +143,6 @@ class ViewCustomCard extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               _produto.preco.toString(),
-
                               textAlign: TextAlign.center,
                             ),
                           )
@@ -169,6 +158,5 @@ class ViewCustomCard extends StatelessWidget {
         }
       },
     );
-
-}
+  }
 }
