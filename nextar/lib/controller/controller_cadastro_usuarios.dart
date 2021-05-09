@@ -121,7 +121,7 @@ class ControllerCadastroUsuarios extends GetxController {
         // Se o token verificado for verdadeiro, concede o acesso
         if (_verificarToken) {
           _prefs.setString('token', _resposta[0]['token']);
-          _prefs.setString('idUsuario', _resposta[0]['id']);
+          _prefs.setInt('idUsuario', _resposta[0]['id']);
           Get.toNamed('/principal');
         }
 
