@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 
 class ViewCadastroProdutos extends StatelessWidget {
   final TextEditingController _descricaoProduto = TextEditingController();
-  final MoneyMaskedTextController _preco =
-      MoneyMaskedTextController(leftSymbol: 'R\$', decimalSeparator: ',', thousandSeparator: '');
+  final MoneyMaskedTextController _preco = MoneyMaskedTextController(
+      leftSymbol: 'R\$', decimalSeparator: ',', thousandSeparator: '');
   final TextEditingController _quantidadeEstoque = TextEditingController();
   final TextEditingController _codigo = TextEditingController();
 
@@ -29,7 +29,7 @@ class ViewCadastroProdutos extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: Offset(0, 3),
                   ),
                 ],
               ),
@@ -122,12 +122,16 @@ class ViewCadastroProdutos extends StatelessWidget {
                           child: Container(
                             margin: EdgeInsets.only(bottom: 20),
                             child: ElevatedButton(
-                              onPressed: () =>
-                                  controllerCadastroProdutos.cadastrarProduto(
-                                      _descricaoProduto.text,
-                                      _preco.text,
-                                      _quantidadeEstoque.text,
-                                      _codigo.text),
+                              onPressed:
+                                  _descricaoProduto.text.trim().isNotEmpty &&
+                                          _codigo.text.trim().isNotEmpty
+                                      ? () => controllerCadastroProdutos
+                                          .cadastrarProduto(
+                                              _descricaoProduto.text,
+                                              _preco.text,
+                                              _quantidadeEstoque.text,
+                                              _codigo.text)
+                                      : null,
                               child: Text("Salvar"),
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.redAccent),
@@ -282,7 +286,7 @@ class ViewCadastroProdutos extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: Offset(0, 3),
                   ),
                 ],
               ),
@@ -381,12 +385,15 @@ class ViewCadastroProdutos extends StatelessWidget {
                       child: Container(
                         margin: EdgeInsets.only(bottom: 20),
                         child: ElevatedButton(
-                          onPressed: () =>
-                              controllerCadastroProdutos.cadastrarProduto(
-                                  _descricaoProduto.text,
-                                  _preco.text,
-                                  _quantidadeEstoque.text,
-                                  _codigo.text),
+                          onPressed: _descricaoProduto.text.trim().isNotEmpty &&
+                                  _codigo.text.trim().isNotEmpty
+                              ? () =>
+                                  controllerCadastroProdutos.cadastrarProduto(
+                                      _descricaoProduto.text,
+                                      _preco.text,
+                                      _quantidadeEstoque.text,
+                                      _codigo.text)
+                              : null,
                           child: Text("Salvar"),
                           style: ElevatedButton.styleFrom(
                               primary: Colors.redAccent),
