@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:typed_data';
 import 'package:Nextar/view/widgets/view_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ControllerCadastroProdutos extends GetxController {
   void onInit() {
@@ -19,23 +20,32 @@ class ControllerCadastroProdutos extends GetxController {
 
   void cadastrarProduto(String descricaoProduto, String preco,
       String quantidadeEstoque, String codigo) async {
-    final Produto _produto = Produto(
-        descricaoProduto: descricaoProduto,
-        preco: double.parse(preco.replaceAll(',', '.').replaceAll('R\$', '')),
-        quantidadeEstoque: int.parse(quantidadeEstoque),
-        codigo: codigo,
-        dataCriacao: DateTime.now().toString(),
-        imagem: this._image);
+    if (descricaoProduto.trim().isNotEmpty && codigo.trim().isNotEmpty) {
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
 
-    final int _resposta = await _database.insertProduto(row: _produto.toMap());
+      final Produto _produto = Produto(
+          idUser: _prefs.getInt('idUsuario'),
+          descricaoProduto: descricaoProduto,
+          preco: double.parse(preco.replaceAll(',', '.').replaceAll('R\$', '')),
+          quantidadeEstoque: int.parse(quantidadeEstoque),
+          codigo: codigo,
+          dataCriacao: DateTime.now().toString(),
+          imagem: this._image);
 
-    if (_resposta > 0) {
-      Get.back();
-      Get.snackbar('Sucesso', 'Produto cadastrado com sucesso!');
-      listarProdutos();
+      final int _resposta =
+          await _database.insertProduto(row: _produto.toMap());
+
+      if (_resposta > 0) {
+        Get.back();
+        Get.snackbar('Sucesso', 'Produto cadastrado com sucesso!');
+        listarProdutos();
+      } else {
+        Get.snackbar('Erro',
+            'Sentimos muito. Ocorreu um erro. Contate o suporte ou tente novamente mais tarde');
+      }
     } else {
-      Get.snackbar('Erro',
-          'Sentimos muito. Ocorreu um erro. Contate o suporte ou tente novamente mais tarde');
+      Get.snackbar(
+          'Divergência', 'Preencha os campos obrigatórios corretamente');
     }
   }
 
@@ -48,15 +58,19 @@ class ControllerCadastroProdutos extends GetxController {
   }
 
   Future<List<ViewCustomCard>> listarProdutos() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
     produtosCard.clear();
 
+    int idUsuario = _prefs.getInt('idUsuario');
+
     List<Map<String, dynamic>> resposta =
-        await _database.queryAllRowsProdutos();
+        await _database.queryAllRowsProdutos(idUsuario: idUsuario);
 
     for (var produto in resposta) {
       var p = Produto.fromJson(produto);
       produtosCard.add(ViewCustomCard(
           produto: Produto(
+              idUser: _prefs.getInt('idUsuario'),
               descricaoProduto: p.descricaoProduto,
               preco: p.preco,
               quantidadeEstoque: p.quantidadeEstoque,
