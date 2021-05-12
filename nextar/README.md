@@ -12,7 +12,7 @@ alpha 1.0.0+1
 * É necessário a Dart SDK na versão >= 2.7.0 ou < 3.0.0
 <<<<<<< HEAD
 
-* As dependências utilizadas para desenvolvimento do projeto são as seguintes
+* As dependências utilizadas para desenvolvimento do projeto são as seguintes:
 -  sqflite: ^2.0.0+3
 -  shared_preferences: ^2.0.5
 -  google_fonts: ^2.0.0
