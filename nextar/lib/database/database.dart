@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class DatabaseHelper {
   static final _databaseName = "NextarSystem.db";
-  static final _databaseVersion = 3;
+  static final _databaseVersion = 10;
 
   static final _tableUsuarios = 'Usuarios';
   static final _columnIdUsuario = 'id_usuario';
@@ -53,7 +53,7 @@ class DatabaseHelper {
             $_columnIdUsuario INTEGER PRIMARY KEY NOT NULL,
             $_columnUsuario VARCHAR(30) NOT NULL,
             $_columnCpf VARCHAR(14) UNIQUE NOT NULL,
-            $_columnToken VARCHAR(100) NOT NULL
+            $_columnToken VARCHAR(50) NOT NULL
           )
     ''');
 
@@ -168,17 +168,23 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> queryAllRowsProdutosPreco(
       {@required int idUsuario}) async {
     Database db = await instance.database;
-    return await db.query(_tableProdutos,
-        where: 'id_usuario = ?', whereArgs: [idUsuario], orderBy: _columnPreco);
+    return await db.query(
+      _tableProdutos,
+      where: 'id_usuario = ?',
+      whereArgs: [idUsuario],
+      orderBy: '$_columnPreco ASC',
+    );
   }
 
   Future<List<Map<String, dynamic>>> queryAllRowsProdutosData(
       {@required int idUsuario}) async {
     Database db = await instance.database;
-    return await db.query(_tableProdutos,
-        where: 'id_usuario = ?',
-        whereArgs: [idUsuario],
-        orderBy: _columnDataCriacao);
+    return await db.query(
+      _tableProdutos,
+      where: 'id_usuario = ?',
+      whereArgs: [idUsuario],
+      orderBy: '$_columnDataCriacao DESC',
+    );
   }
 
   // Assumimos aqui que a coluna cpf no mapa está definida. Os outros
