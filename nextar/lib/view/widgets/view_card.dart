@@ -66,7 +66,9 @@ class ViewCustomCard extends StatelessWidget {
                               width: _width / 4,
                               alignment: Alignment.center,
                               child: Text(
-                                "Quantidade: ${_produto.quantidadeEstoque}",
+                                _produto.quantidadeEstoque != null
+                                    ? "Quantidade: ${_produto.quantidadeEstoque}"
+                                    : 'Quantidade: 0',
                                 style: GoogleFonts.lato(fontSize: 20),
                                 textAlign: TextAlign.center,
                               ),
@@ -84,7 +86,9 @@ class ViewCustomCard extends StatelessWidget {
                               width: _width / 2.3,
                               alignment: Alignment.center,
                               child: Text(
-                                'R\$${_produto.preco.toStringAsFixed(2).replaceAll('.', ',')}',
+                                _produto.preco != null
+                                    ? 'R\$${_produto.preco.toStringAsFixed(2).replaceAll('.', ',')}'
+                                    : 'R\$ 0,00',
                                 style: GoogleFonts.lato(fontSize: 20),
                                 textAlign: TextAlign.center,
                               ),
@@ -160,7 +164,9 @@ class ViewCustomCard extends StatelessWidget {
                                         _produto.idProduto,
                                         _produto.descricaoProduto,
                                         _produto.preco,
-                                        _produto.quantidadeEstoque,
+                                        _produto.quantidadeEstoque != null
+                                            ? _produto.quantidadeEstoque
+                                            : 0,
                                         _produto.codigo,
                                         _produto.imagem
                                       ]),
@@ -180,7 +186,9 @@ class ViewCustomCard extends StatelessWidget {
                         _produto.idProduto,
                         _produto.descricaoProduto,
                         _produto.preco,
-                        _produto.quantidadeEstoque,
+                        _produto.quantidadeEstoque != null
+                            ? _produto.quantidadeEstoque
+                            : 0,
                         _produto.codigo,
                         _produto.imagem
                       ],
@@ -235,7 +243,9 @@ class ViewCustomCard extends StatelessWidget {
                             width: _width / 4,
                             alignment: Alignment.center,
                             child: Text(
-                              "Quantidade: ${_produto.quantidadeEstoque}",
+                              _produto.quantidadeEstoque != null
+                                  ? "Quantidade: ${_produto.quantidadeEstoque}"
+                                  : 'Quantidade: 0',
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -251,7 +261,9 @@ class ViewCustomCard extends StatelessWidget {
                             width: _width / 2.3,
                             alignment: Alignment.center,
                             child: Text(
-                              'R\$${_produto.preco.toStringAsFixed(2).replaceAll('.', ',')}',
+                              _produto.preco != null
+                                  ? 'R\$${_produto.preco.toStringAsFixed(2).replaceAll('.', ',')}'
+                                  : 'R\$ 0,00',
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -321,7 +333,9 @@ class ViewCustomCard extends StatelessWidget {
                                             _produto.idProduto,
                                             _produto.descricaoProduto,
                                             _produto.preco,
-                                            _produto.quantidadeEstoque,
+                                            _produto.quantidadeEstoque != null
+                                                ? _produto.quantidadeEstoque
+                                                : 0,
                                             _produto.codigo,
                                             _produto.imagem
                                           ])),
@@ -340,7 +354,9 @@ class ViewCustomCard extends StatelessWidget {
                   _produto.idProduto,
                   _produto.descricaoProduto,
                   _produto.preco,
-                  _produto.quantidadeEstoque,
+                  _produto.quantidadeEstoque != null
+                      ? _produto.quantidadeEstoque
+                      : 0,
                   _produto.codigo,
                   _produto.imagem
                 ],
