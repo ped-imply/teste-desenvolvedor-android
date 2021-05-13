@@ -49,6 +49,7 @@ class ViewCadastroProdutos extends StatelessWidget {
                               width: _width / 4,
                               child: TextFormField(
                                   controller: _descricaoProduto,
+                                  maxLength: 60,
                                   cursorColor: Colors.redAccent,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(
@@ -188,6 +189,7 @@ class ViewCadastroProdutos extends StatelessWidget {
                           child: TextFormField(
                               controller: _descricaoProduto,
                               cursorColor: Colors.redAccent,
+                              maxLength: 60,
                               decoration: InputDecoration(
                                   border: UnderlineInputBorder(
                                       borderSide:
@@ -329,6 +331,7 @@ class ViewCadastroProdutos extends StatelessWidget {
                           child: TextFormField(
                               controller: _descricaoProduto,
                               cursorColor: Colors.redAccent,
+                              maxLength: 60,
                               decoration: InputDecoration(
                                   border: UnderlineInputBorder(
                                       borderSide:
