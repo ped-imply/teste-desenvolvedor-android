@@ -8,12 +8,17 @@ import 'package:nextar/view/view_recuperar_senha.dart';
 import 'package:nextar/view/view_editar_produtos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  SharedPreferences.setMockInitialValues({});
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  Get.put(ControllerCadastroUsuarios());
+
+  SharedPreferences _prefs = await SharedPreferences.getInstance();
+  String token = _prefs.getString('token');
 
   runApp(GetMaterialApp(
-    initialRoute: '/login',
-    home: Principal(),
+    debugShowCheckedModeBanner: false,
+    home: token == null ? Principal() : ViewHome(),
     color: Colors.redAccent,
     title: "Nextar",
     getPages: [
@@ -22,13 +27,13 @@ void main() {
         page: () => Principal(),
       ),
       GetPage(
-          name: '/recuperarSenha',
-          page: () => ViewRecuperarSenha(),
-          transition: Transition.rightToLeftWithFade),
+        name: '/recuperarSenha',
+        page: () => ViewRecuperarSenha(),
+      ),
       GetPage(
-          name: '/cadastroUsuario',
-          page: () => ViewCadastroUsuarios(),
-          transition: Transition.rightToLeftWithFade),
+        name: '/cadastroUsuario',
+        page: () => ViewCadastroUsuarios(),
+      ),
       GetPage(name: '/principal', page: () => ViewHome()),
       GetPage(
           name: '/cadastroProdutos',
@@ -46,7 +51,7 @@ class Principal extends StatelessWidget {
   final TextEditingController _usuario = TextEditingController();
   final TextEditingController _senha = TextEditingController();
 
-  final _controllerLogin = Get.put(ControllerCadastroUsuarios());
+  final _controllerLogin = Get.find<ControllerCadastroUsuarios>();
 
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
@@ -84,8 +89,6 @@ class Principal extends StatelessWidget {
                           controller: _usuario,
                           cursorColor: Colors.redAccent,
                           decoration: InputDecoration(
-                              border: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
                               hintText: "Digite seu usuário",
                               focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.red))),
