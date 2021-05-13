@@ -25,7 +25,7 @@ class Produto {
   int _idUsuario;
   String _descricaoProduto;
   var _preco;
-  int _quantidadeEstoque;
+  var _quantidadeEstoque;
   String _codigo;
   String _dataCriacao;
   Uint8List _imagem;
@@ -66,7 +66,8 @@ class Produto {
     this._idProduto = json['id_produto'];
     this._idUsuario = json['id_usuario'];
     this._descricaoProduto = json['descricaoProduto'];
-    this._preco = json['preco'];
+    this._preco =
+        json['preco'] == null ? null : double.parse(json['preco'].toString());
     this._quantidadeEstoque = json['quantidade'];
     this._codigo = json['codigo'];
     this._dataCriacao = json['data_criacao'];
@@ -80,5 +81,5 @@ class Produto {
   get quantidadeEstoque => this._quantidadeEstoque;
   get codigo => this._codigo;
   get dataCriacao => this._dataCriacao;
-  get imagem => this._imagem;
+  Uint8List get imagem => this._imagem;
 }
