@@ -1,5 +1,5 @@
 name: nextar
-description: A new Flutter project.
+description: Catálogo de produtos multiusuário para gerenciamento de estoque, preços e mapeamento dos produtos.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
