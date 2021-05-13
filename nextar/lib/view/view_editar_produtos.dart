@@ -120,9 +120,7 @@ class ViewEdicaoProdutos extends StatelessWidget {
                                     left: BorderSide(color: Colors.red),
                                     right: BorderSide(color: Colors.red),
                                     top: BorderSide(color: Colors.red))),
-                            child: Obx(() => _controllerCadastroProdutos
-                                        .image.lengthInBytes ==
-                                    0
+                            child: Obx(() => Get.arguments[6].lengthInBytes == 0
                                 ? Center(
                                     child: Container(
                                       width: _width,
@@ -137,8 +135,7 @@ class ViewEdicaoProdutos extends StatelessWidget {
                                 : Center(
                                     child: Container(
                                         width: _width,
-                                        child: Image.memory(
-                                            _controllerCadastroProdutos.image)),
+                                        child: Image.memory(Get.arguments[6])),
                                   )),
                           ),
                         ),
@@ -270,25 +267,22 @@ class ViewEdicaoProdutos extends StatelessWidget {
                                 left: BorderSide(color: Colors.red),
                                 right: BorderSide(color: Colors.red),
                                 top: BorderSide(color: Colors.red))),
-                        child: Obx(() =>
-                            _controllerCadastroProdutos.image.lengthInBytes == 0
-                                ? Center(
-                                    child: Container(
-                                      width: _width,
-                                      child: Text(
-                                        "Selecione uma imagem",
-                                        textAlign: TextAlign.center,
-                                        style:
-                                            TextStyle(color: Colors.redAccent),
-                                      ),
-                                    ),
-                                  )
-                                : Center(
-                                    child: Container(
-                                        width: _width,
-                                        child: Image.memory(
-                                            _controllerCadastroProdutos.image)),
-                                  )),
+                        child: Obx(() => Get.arguments[6].lengthInBytes == 0
+                            ? Center(
+                                child: Container(
+                                  width: _width,
+                                  child: Text(
+                                    "Selecione uma imagem",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: Colors.redAccent),
+                                  ),
+                                ),
+                              )
+                            : Center(
+                                child: Container(
+                                    width: _width,
+                                    child: Image.memory(Get.arguments[6])),
+                              )),
                       ),
                     ),
                     Container(
