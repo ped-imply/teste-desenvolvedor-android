@@ -46,10 +46,9 @@ class ViewCadastroUsuarios extends StatelessWidget {
                         margin: EdgeInsets.only(top: 20, left: 30, right: 30),
                         child: TextFormField(
                           controller: _nomeUsuario,
+                          maxLength: 30,
                           cursorColor: Colors.redAccent,
                           decoration: InputDecoration(
-                              border: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
                               hintText: 'Digite seu usuário',
                               focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.red))),
@@ -99,15 +98,16 @@ class ViewCadastroUsuarios extends StatelessWidget {
                         margin: EdgeInsets.only(top: 20),
                         width: _width / 6,
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: Colors.redAccent),
-                          child: Text('Cadastrar'),
-                          onPressed: () => _controllerLogin.cadastrarUsuario(
-                              _nomeUsuario.text,
-                              _cpf.text,
-                              _senha.text,
-                              _confirmarSenha.text),
-                        ),
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.redAccent),
+                            child: Text('Cadastrar'),
+                            onPressed: () {
+                              _controllerLogin.cadastrarUsuario(
+                                  _nomeUsuario.text,
+                                  _cpf.text,
+                                  _senha.text,
+                                  _confirmarSenha.text);
+                            }),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 20),
@@ -149,6 +149,7 @@ class ViewCadastroUsuarios extends StatelessWidget {
                   child: TextFormField(
                       controller: _nomeUsuario,
                       cursorColor: Colors.redAccent,
+                      maxLength: 30,
                       decoration: InputDecoration(
                         hintText: 'Digite seu usuário',
                         focusedBorder: UnderlineInputBorder(
@@ -194,15 +195,13 @@ class ViewCadastroUsuarios extends StatelessWidget {
                     width: _width / 3,
                     margin: EdgeInsets.only(top: 20),
                     child: ElevatedButton(
-                      style:
-                          ElevatedButton.styleFrom(primary: Colors.redAccent),
-                      child: Text('Cadastrar'),
-                      onPressed: () => _controllerLogin.cadastrarUsuario(
-                          _nomeUsuario.text,
-                          _cpf.text,
-                          _senha.text,
-                          _confirmarSenha.text),
-                    )),
+                        style:
+                            ElevatedButton.styleFrom(primary: Colors.redAccent),
+                        child: Text('Cadastrar'),
+                        onPressed: () {
+                          _controllerLogin.cadastrarUsuario(_nomeUsuario.text,
+                              _cpf.text, _senha.text, _confirmarSenha.text);
+                        })),
                 Container(
                   margin: EdgeInsets.only(top: 20),
                   child: InkWell(
