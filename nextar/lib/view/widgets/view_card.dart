@@ -84,7 +84,7 @@ class ViewCustomCard extends StatelessWidget {
                               width: _width / 2.3,
                               alignment: Alignment.center,
                               child: Text(
-                                _produto.preco.toString(),
+                                'R\$${_produto.preco.toStringAsFixed(2).replaceAll('.', ',')}',
                                 style: GoogleFonts.lato(fontSize: 20),
                                 textAlign: TextAlign.center,
                               ),
@@ -251,7 +251,7 @@ class ViewCustomCard extends StatelessWidget {
                             width: _width / 2.3,
                             alignment: Alignment.center,
                             child: Text(
-                              _produto.preco.toString(),
+                              'R\$${_produto.preco.toStringAsFixed(2).replaceAll('.', ',')}',
                               textAlign: TextAlign.center,
                             ),
                           ),
