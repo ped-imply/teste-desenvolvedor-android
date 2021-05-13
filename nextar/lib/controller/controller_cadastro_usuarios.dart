@@ -5,10 +5,6 @@ import 'package:dbcrypt/dbcrypt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ControllerCadastroUsuarios extends GetxController {
-  void onInit() {
-    super.onInit();
-  }
-
   // Variável para chamar a instância do banco de dados
   // para então, consequentemente, obter acesso aos comandos de SGBD
   final DatabaseHelper _database = DatabaseHelper.instance;
@@ -44,20 +40,17 @@ class ControllerCadastroUsuarios extends GetxController {
     else if (cpf.trim().isEmpty || cpf.length < 14) {
       Get.snackbar(
           'Divergência', 'CPF inválido. Por favor, revise seus dados.');
-     
     }
     // Se o campo anterior fora preenchido corretamente, verifica se a senha digitada é válida
     else if (senha.trim().isEmpty || senha.length < 6) {
       Get.snackbar('Divergência',
           'A senha não pode estar vazia e precisa ser maior que seis caracteres. Por favor, revise seus dados.');
-      
     }
     // Se o campo anterior fora preenchido corretamente, realiza uma comparação dos campos
     // "Senha" e "Confirmar senha" se ambos são válidos
     else if (senha != confirmarSenha) {
       Get.snackbar('Divergência',
           'As senhas não conferem. Por favor, revise seus dados.');
-     
     }
     // Se todos os campos anteriores foram preenchidos corretamente
     // então é realizada uma busca no banco de dados para verificar a existêcnia do usuário
@@ -79,11 +72,9 @@ class ControllerCadastroUsuarios extends GetxController {
       if (_resposta > 0) {
         Get.back();
         Get.snackbar('Sucesso', 'Usuário cadastrado com sucesso!');
-        
       } else {
         Get.snackbar('Erro',
             'Sentimos muito. Ocorreu um erro. Contate o suporte ou tente novamente mais tarde');
-       
       }
     }
   }
@@ -96,7 +87,6 @@ class ControllerCadastroUsuarios extends GetxController {
     if (usuario.trim().isEmpty || senha.trim().isEmpty) {
       Get.snackbar(
           'Divergência', 'Por favor, preencha os dados de login corretamente.');
-      
     }
 
     // Caso contrário é feita uma verificação no banco de dados acerca da
@@ -114,7 +104,6 @@ class ControllerCadastroUsuarios extends GetxController {
       if (_resposta.isEmpty) {
         Get.snackbar(
             'Divergência', 'Usuário inexistente. Por favor, revise seus dados');
-        
       }
       // Caso contrário, é feita uma verificação dos seus dados no banco de dados
       else {
@@ -128,7 +117,6 @@ class ControllerCadastroUsuarios extends GetxController {
           await _prefs.setInt('idUsuario', _resposta[0]['id_usuario']);
           await _prefs.setString('usuario', _resposta[0]['usuario']);
           Get.toNamed('/principal');
-        
         }
 
         // Caso contrário, nega o mesmo
@@ -140,17 +128,6 @@ class ControllerCadastroUsuarios extends GetxController {
     }
   }
 
-  /*void verificarUsuarioLogado() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var token = _prefs.getString('token');
-
-    if (token.isEmpty) {
-      Get.toNamed('/login');
-    } else {
-      Get.toNamed('/principal');
-    }
-  }*/
-
   // Método responsável por encerrar a sessão do usuário no sistema
   void deslogar() async {
     // Biblioteca responsável por persistir os dados do usuário localmente, como um cookie
@@ -160,7 +137,7 @@ class ControllerCadastroUsuarios extends GetxController {
     _prefs.clear();
 
     // Retorna a tela principal
-    Get.back();
+    Get.offAllNamed('/login');
   }
 
   // Método responsável por recuperar a senha do usuário corretamente
