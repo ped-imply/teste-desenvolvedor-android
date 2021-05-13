@@ -172,7 +172,7 @@ class DatabaseHelper {
       _tableProdutos,
       where: 'id_usuario = ?',
       whereArgs: [idUsuario],
-      orderBy: '$_columnPreco ASC',
+      orderBy: '$_columnPreco DESC',
     );
   }
 
