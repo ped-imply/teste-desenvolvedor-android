@@ -47,9 +47,12 @@ class ControllerCadastroProdutos extends GetxController {
         final Produto _produto = Produto(
             idUser: _prefs.getInt('idUsuario'),
             descricaoProduto: descricaoProduto,
-            preco:
-                double.parse(preco.replaceAll(',', '.').replaceAll('R\$', '')),
-            quantidadeEstoque: int.parse(quantidadeEstoque),
+            preco: preco.isEmpty
+                ? null
+                : double.parse(
+                    preco.replaceAll(',', '.').replaceAll('R\$', '')),
+            quantidadeEstoque:
+                quantidadeEstoque.isEmpty ? null : int.parse(quantidadeEstoque),
             codigo: codigo,
             dataCriacao: DateTime.now().toString(),
             imagem: this._image.value);
@@ -114,6 +117,7 @@ class ControllerCadastroProdutos extends GetxController {
     // array e em seguida seu retorno
     for (var produto in _resposta) {
       var p = Produto.fromJson(produto);
+      print(p.preco);
       produtosCard.add(ViewCustomCard(
           produto: Produto(
               idProduto: p.idProduto,
@@ -136,8 +140,11 @@ class ControllerCadastroProdutos extends GetxController {
     int _resposta = await _database.updateProdutos(row: {
       'id_produto': idProduto,
       'descricaoProduto': descricaoProduto,
-      'preco': double.parse(preco.replaceAll(',', '.').replaceAll('R\$', '')),
-      'quantidade': int.parse(quantidadeEstoque),
+      'preco': preco.isEmpty
+          ? 0.00
+          : double.parse(preco.replaceAll(',', '.').replaceAll('R\$', '')),
+      'quantidade':
+          quantidadeEstoque.isEmpty ? 0 : int.parse(quantidadeEstoque),
       'imagem_produto': _image.value
     });
 
