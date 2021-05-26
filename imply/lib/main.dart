@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:imply/controller/controller_produtos.dart';
+import 'package:imply/view/view_checkout.dart';
 
 main() => runApp(GetMaterialApp(
-      getPages: [GetPage(name: '/principal', page: () => Principal())],
+      title: "imply",
+      color: Color(0xff005c92),
+      getPages: [
+        GetPage(name: '/principal', page: () => Principal()),
+        GetPage(name: '/checkout', page: () => ViewCheckout())
+      ],
       home: Principal(),
       initialRoute: '/principal',
     ));
@@ -23,41 +29,77 @@ class Principal extends StatelessWidget {
                     height: 60,
                     decoration: BoxDecoration(color: Color(0xff005c92)),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(left: 10),
+                          margin: EdgeInsets.only(left: 4),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               border: Border.all(
                                   width: 2, color: Color(0xff426fa5)),
                               borderRadius: BorderRadius.circular(4)),
-                          width: 180,
-                          height: 50,
+                          height: 45,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                child: Text("Texto aqui"),
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                child: Obx(() => _controller.total.value ==
+                                            0.0 ||
+                                        _controller.total.value == null
+                                    ? Text("R\$: 0,00",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold))
+                                    : Text(
+                                        "R\$: ${_controller.total.value.toStringAsFixed(2).replaceAll('.', ',')}",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold))),
                               ),
                               VerticalDivider(
                                 color: Colors.grey[600],
                                 width: 10,
                               ),
                               Container(
-                                child: Text("Texto aqui"),
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                child: Obx(() => _controller.quantidade.value ==
+                                            0 ||
+                                        _controller.quantidade.value == null
+                                    ? Text("Quantidade: 0")
+                                    : Text(
+                                        "Quantidade: ${_controller.quantidade.value}")),
                               )
                             ],
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 15),
-                          child: ElevatedButton(
-                              onPressed: () {}, child: Text("Limpar")),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 10),
-                          child: ElevatedButton(
-                              onPressed: () {}, child: Text("Confirmar")),
+                          margin: EdgeInsets.only(right: 8),
+                          child: Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 4),
+                                child: ElevatedButton(
+                                  onPressed: () => _controller.limparCarrinho(),
+                                  child: Text("Limpar"),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.red),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 8),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Get.toNamed('/checkout');
+                                    _controller.obterProdutosCarrinho();
+                                  },
+                                  child: Text("OK"),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.green),
+                                ),
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -94,13 +136,15 @@ class Principal extends StatelessWidget {
                                   Color(0xff005c92)),
                             ))
                           : Container(
+                              height: _height,
+                              width: _width,
                               child: Center(
                                   child: SingleChildScrollView(
-                              child: Wrap(
-                                spacing: 5,
-                                children: _controller.cardsComidas,
-                              ),
-                            )))),
+                                child: Wrap(
+                                  spacing: 5,
+                                  children: _controller.cardsComidas,
+                                ),
+                              )))),
                       Obx(() => _controller.cardsBebidas.isEmpty ||
                               _controller.cardsBebidas == [] ||
                               _controller.cardsBebidas.length == 0
@@ -110,13 +154,15 @@ class Principal extends StatelessWidget {
                                   Color(0xff005c92)),
                             ))
                           : Container(
+                              height: _height,
+                              width: _width,
                               child: Center(
                                   child: SingleChildScrollView(
-                              child: Wrap(
-                                spacing: 5,
-                                children: _controller.cardsBebidas,
-                              ),
-                            )))),
+                                child: Wrap(
+                                  spacing: 5,
+                                  children: _controller.cardsBebidas,
+                                ),
+                              )))),
                     ],
                   )))),
     );
