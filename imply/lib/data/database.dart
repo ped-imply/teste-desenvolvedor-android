@@ -5,11 +5,11 @@ import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelper {
   static final _databaseName = "ImplySystem.db";
-  static final _databaseVersion = 2;
+  static final _databaseVersion = 7;
 
   static final _tableCarrinho = "Carrinho";
   static final _columnDescricaoProdutoCarrinho = "descricao_produto";
-  static final _columnValorUnitarioCarrinho = "valor";
+  static final _columnValorUnitarioCarrinho = "valor_unitario";
   static final _columnQuantidadeCarrinho = "quantidade";
   static final _columnValorTotalCarrinho = "valor_total";
 
@@ -50,7 +50,7 @@ class DatabaseHelper {
             $_columnDescricaoProdutoCarrinho VARCHAR(100) NOT NULL,
             $_columnQuantidadeCarrinho INTEGER NOT NULL,
             $_columnValorUnitarioCarrinho DECIMAL (5,2) NOT NULL,
-            $_columnValorTotalCarrinho DECIMAL (9,2) NOT NULL,
+            $_columnValorTotalCarrinho DECIMAL (9,2) NOT NULL
           )
           ''');
 
@@ -61,7 +61,7 @@ class DatabaseHelper {
             $_columnDescricaoProdutoCompra VARCHAR(100) NOT NULL,
             $_columnQuantidadeCompra INTEGER NOT NULL,
             $_columnValorUnitarioCompra DECIMAL(5,2) NOT NULL,
-            $_columnValorTotalCompra DECIMAL(9,2) NOT NULL,
+            $_columnValorTotalCompra DECIMAL(9,2) NOT NULL
           )
           ''');
   }
