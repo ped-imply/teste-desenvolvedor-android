@@ -17,6 +17,7 @@ class Produto {
   final double _valor;
   final String _categoria;
   final Uint8List _imagem;
+  int _quantidade = 0;
 
   Produto.fromJson(Map<String, dynamic> json)
       : this._descricaoProduto = json['dsc_produto'],
@@ -32,7 +33,7 @@ class Produto {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = Map();
     map['descricao_produto'] = this._descricaoProduto;
-    map['valor'] = this._valor;
+    map['valor_unitario'] = this._valor;
     map['quantidade'] = 1;
 
     return map;
@@ -42,4 +43,6 @@ class Produto {
   get valor => this._valor;
   get categoria => this._categoria;
   get imagem => this._imagem;
+  get quantidade => this._quantidade;
+  set quantidade(int quantidade) => this._quantidade = quantidade;
 }
