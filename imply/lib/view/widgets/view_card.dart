@@ -5,30 +5,38 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ViewCustomCard extends StatelessWidget {
-  ViewCustomCard(Produto produto, {int quantidade})
-      : this._produto = produto,
-        this._quantidade = quantidade;
+  ViewCustomCard(Produto produto) : this.produto = produto;
 
   final _controller = Get.put(ControllerProdutos());
-  final Produto _produto;
-  final int _quantidade;
+  final Produto produto;
 
   Widget build(BuildContext context) {
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
+
     return GestureDetector(
       child: Container(
-        width: 150,
-        height: 230,
+        width: _width / 3,
+        height: _height / 3.5,
         child: Badge(
           toAnimate: true,
-          showBadge:
-              this._quantidade == 0 || this._quantidade == null ? false : true,
+          showBadge: true,
           shape: BadgeShape.circle,
+          position: BadgePosition.topEnd(end: 0, top: -2),
           badgeColor: Colors.red,
-          badgeContent: Text(
-            this._quantidade.toString(),
-            style: TextStyle(color: Colors.white),
-          ),
+          badgeContent: Obx(() => _controller.quantidade.value == 0 ||
+                  _controller.quantidade.value == null
+              ? Text(
+                  "0",
+                  style: TextStyle(color: Colors.white),
+                )
+              : Text(
+                  produto.quantidade.toString(),
+                  style: TextStyle(color: Colors.white),
+                )),
           child: Container(
+            width: _width / 3,
+            height: _height / 3.5,
             child: Card(
               elevation: 5,
               child: Column(
@@ -36,19 +44,19 @@ class ViewCustomCard extends StatelessWidget {
                 children: [
                   Container(
                     child: Text(
-                      _produto.descricaoProduto,
+                      produto.descricaoProduto,
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Container(
                     child: Image.memory(
-                      _produto.imagem,
+                      produto.imagem,
                       fit: BoxFit.cover,
                     ),
                   ),
                   Container(
                     child: Text(
-                      "R\$${_produto.valor.toStringAsFixed(2).replaceAll('.', ',')}",
+                      "R\$${produto.valor.toStringAsFixed(2).replaceAll('.', ',')}",
                       style: TextStyle(fontSize: 25),
                     ),
                   )
@@ -59,7 +67,7 @@ class ViewCustomCard extends StatelessWidget {
         ),
       ),
       onTap: () {
-        _controller.inserirProdutoCarrinho(_produto);
+        _controller.inserirProdutoCarrinho(produto);
       },
     );
   }
