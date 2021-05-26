@@ -1,16 +1,28 @@
-# imply
+# Imply System
 
-A new Flutter project.
+Catálogo de produtos para venda de produtos em geral.
 
-## Getting Started
+# Versão
+alpha 1.0.0+1
 
-This project is a starting point for a Flutter application.
+## Instruções para manuseio do código
 
-A few resources to get you started if this is your first Flutter project:
+* É necessário a versão 2.2.0 Stable Channel do Flutter para manipulação correta do código
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+* É necessário a Dart SDK na versão >= 2.7.0 ou < 3.0.0
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* As dependências utilizadas para desenvolvimento do projeto são as seguintes:
+ - cupertino_icons: ^1.0.2 // Usado para compatibilidade de fontes e ícones do tema Cupertino do iOS
+ - get: ^4.1.4 // Gerenciador de estados
+ - dio: ^4.0.0 // Cliente HTTP para Dart
+ - sqflite: ^2.0.0+3 // SQLite para Flutter
+ - path: ^1.8.0 // Dependência necessária para sqflite
+ - path_provider: ^2.0.2 // Dependência necessária para sqflite
+ - badges: ^2.0.1 // Contadores dos produtos
+
+* Não é necessário quaisquer dependências de desenvolvedor
+
+* O sistema é suportado apenas nas plataformas: Android e iOS
+
+Quaisquer dúvidas, entre em contato por victorcristovaoproppe@gmail.com
+
