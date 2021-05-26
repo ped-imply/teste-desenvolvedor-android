@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:imply/controller/controller_produtos.dart';
 
 main() => runApp(GetMaterialApp(
       getPages: [GetPage(name: '/principal', page: () => Principal())],
@@ -9,13 +10,17 @@ main() => runApp(GetMaterialApp(
 
 class Principal extends StatelessWidget {
   Widget build(BuildContext context) {
+    final _controller = Get.put(ControllerProdutos());
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
+
     return Container(
       child: Container(
           child: DefaultTabController(
               length: 2,
               child: Scaffold(
-                  bottomSheet: Container(
-                    height: 80,
+                  bottomNavigationBar: Container(
+                    height: 60,
                     decoration: BoxDecoration(color: Color(0xff005c92)),
                     child: Row(
                       children: [
@@ -66,20 +71,53 @@ class Principal extends StatelessWidget {
                     bottom: TabBar(indicatorColor: Color(0xff005c92), tabs: [
                       Tab(
                         child: Text(
-                          "Bebidas",
+                          "Lanches",
                           style: TextStyle(color: Color(0xff005c92)),
                         ),
                       ),
                       Tab(
                         child: Text(
-                          "Lanches",
+                          "Bebidas",
                           style: TextStyle(color: Color(0xff005c92)),
                         ),
                       ),
                     ]),
                   ),
                   body: TabBarView(
-                    children: [Container(), Container()],
+                    children: [
+                      Obx(() => _controller.cardsComidas.isEmpty ||
+                              _controller.cardsComidas == [] ||
+                              _controller.cardsComidas.length == 0
+                          ? Center(
+                              child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(0xff005c92)),
+                            ))
+                          : Container(
+                              child: Center(
+                                  child: SingleChildScrollView(
+                              child: Wrap(
+                                spacing: 5,
+                                children: _controller.cardsComidas,
+                              ),
+                            )))),
+                      Obx(() => _controller.cardsBebidas.isEmpty ||
+                              _controller.cardsBebidas == [] ||
+                              _controller.cardsBebidas.length == 0
+                          ? Center(
+                              child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(0xff005c92)),
+                            ))
+                          : Container(
+                              child: Center(
+                                  child: SingleChildScrollView(
+                              child: Wrap(
+                                spacing: 5,
+                                children: _controller.cardsBebidas,
+                              ),
+                            )))),
+                    ],
                   )))),
     );
   }
