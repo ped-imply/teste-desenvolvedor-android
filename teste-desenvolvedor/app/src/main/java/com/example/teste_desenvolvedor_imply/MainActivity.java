@@ -86,9 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
         buttonConfirmar.setOnClickListener(view -> {
             System.out.println("Confirmar");
-            for(int i=0; i<selectedProducts.size(); i++){
-                System.out.println(selectedProducts.get(i).getName()+" - "+selectedProducts.get(i).getQuantity()+" - Size: "+selectedProducts.size());
-            }
         });
 
         buttonLimpar.setOnClickListener(view -> {
@@ -121,11 +118,8 @@ public class MainActivity extends AppCompatActivity {
                 int quantityProducts = 0;
                 double valorTotal = 0.00;
                 for(int i=0; i<selectedProducts.size(); i++){
-                    System.out.println(selectedProducts.get(i).getName()+" - "+selectedProducts.get(i).getQuantity()+" - Size: "+selectedProducts.size());
                     quantityProducts += selectedProducts.get(i).getQuantity();
-
                     valorTotal += quantityProducts * selectedProducts.get(i).getUnitaryValue();
-
                 }
                 textTotalValue.setText("R$ "+new DecimalFormat("0.00").format(valorTotal).replace(".", ","));
                 textItens.setText(quantityProducts+" ITENS");
