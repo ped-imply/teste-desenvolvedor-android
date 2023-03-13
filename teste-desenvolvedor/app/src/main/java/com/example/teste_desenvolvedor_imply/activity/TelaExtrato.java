@@ -36,10 +36,13 @@ public class TelaExtrato extends AppCompatActivity {
 
         Intent intent = getIntent();
         String itemString = intent.getStringExtra("products");
-
         SelectedProducts selectedProducts = gson.fromJson(itemString, SelectedProducts.class);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        TextView textTotalExtrato = findViewById(R.id.textTotalExtrato);
+        Button buttonCancelar = findViewById(R.id.buttonCancelar);
+
+
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -52,10 +55,8 @@ public class TelaExtrato extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(extratoAdapter);
 
-        TextView textTotalExtrato = findViewById(R.id.textTotalExtrato);
         textTotalExtrato.setText("R$ "+new DecimalFormat("0.00").format(selectedProducts.getValorTotal()).replace(".", ","));
 
-        Button buttonCancelar = findViewById(R.id.buttonCancelar);
         buttonCancelar.setOnClickListener(view -> {
             Intent intentMain = new Intent(TelaExtrato.this, MainActivity.class);
             startActivity(intentMain);

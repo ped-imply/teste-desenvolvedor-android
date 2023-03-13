@@ -32,8 +32,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private View activeLanches;
-    private View activeBebidas;
     private GridView gridView;
     private List<Product> products;
     private List<Product> bebidas;
@@ -48,7 +46,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         gson = new Gson();
+
+        Button buttonBebidas = findViewById(R.id.buttonBebidas);
+        Button buttonLanches = findViewById(R.id.buttonLanches);
+        Button buttonConfirmar = findViewById(R.id.buttonConfirmar);
+        Button buttonLimpar = findViewById(R.id.buttonLimpar);
+        TextView textItens = findViewById(R.id.textItens);
+        TextView textTotalValue = findViewById(R.id.textTotalValue);
+        View activeBebidas = findViewById(R.id.activeBebidas);
+        View activeLanches = findViewById(R.id.activeLanches);
         gridView = findViewById(R.id.gridView);
+
         bebidas = new ArrayList<>();
         lanches = new ArrayList<>();
         selectedProducts = new SelectedProducts();
@@ -58,17 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         recoverData();
-
-        Button buttonBebidas = findViewById(R.id.buttonBebidas);
-        Button buttonLanches = findViewById(R.id.buttonLanches);
-
-        activeBebidas = findViewById(R.id.activeBebidas);
-        activeLanches = findViewById(R.id.activeLanches);
-
-        Button buttonConfirmar = findViewById(R.id.buttonConfirmar);
-        Button buttonLimpar = findViewById(R.id.buttonLimpar);
-        TextView textItens = findViewById(R.id.textItens);
-        TextView textTotalValue = findViewById(R.id.textTotalValue);
 
         buttonLanches.setOnClickListener(view -> {
             activeBebidas.setVisibility(View.INVISIBLE);
@@ -126,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
                 textTotalValue.setText("R$ "+new DecimalFormat("0.00").format(selectedProducts.getValorTotal()).replace(".", ","));
                 textItens.setText(selectedProducts.getQuantidadeTotal()+" ITENS");
-
             }
         });
 
