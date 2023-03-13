@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.teste_desenvolvedor_imply.adapter.ProductAdapter;
 import com.example.teste_desenvolvedor_imply.api.DataService;
 import com.example.teste_desenvolvedor_imply.model.Imagem;
+import com.example.teste_desenvolvedor_imply.model.Item;
 import com.example.teste_desenvolvedor_imply.model.Product;
 import com.example.teste_desenvolvedor_imply.model.Response;
 import com.example.teste_desenvolvedor_imply.model.SelectedProducts;
@@ -28,15 +29,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button buttonLanches;
-    private Button buttonBebidas;
     private View activeLanches;
     private View activeBebidas;
     private GridView gridView;
     private List<Product> products;
     private List<Product> bebidas;
     private List<Product> lanches;
-    private List<SelectedProducts> selectedProducts;
+    private SelectedProducts selectedProducts;
     private String chosenTab;
     private Retrofit retrofit;
 
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         gridView = findViewById(R.id.gridView);
         bebidas = new ArrayList<>();
         lanches = new ArrayList<>();
-        selectedProducts = new ArrayList<>();
+        selectedProducts = new SelectedProducts();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://ah.we.imply.com/cashless/")
@@ -55,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         recoverData();
 
-        buttonBebidas = findViewById(R.id.buttonBebidas);
-        buttonLanches = findViewById(R.id.buttonLanches);
+        Button buttonBebidas = findViewById(R.id.buttonBebidas);
+        Button buttonLanches = findViewById(R.id.buttonLanches);
 
         activeBebidas = findViewById(R.id.activeBebidas);
         activeLanches = findViewById(R.id.activeLanches);
@@ -84,12 +83,10 @@ public class MainActivity extends AppCompatActivity {
             chosenTab = "Bebidas";
         });
 
-        buttonConfirmar.setOnClickListener(view -> {
-            System.out.println("Confirmar");
-        });
+        buttonConfirmar.setOnClickListener(view -> System.out.println("Confirmar"));
 
         buttonLimpar.setOnClickListener(view -> {
-            selectedProducts.clear();
+            selectedProducts.clearItens();
             textTotalValue.setText("R$ 0,00");
             textItens.setText("0 ITENS");
         });
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     product = lanches.get(position);
 
                 boolean found = false;
-                for (SelectedProducts item : selectedProducts) {
+                for (Item item : selectedProducts.getItens()) {
                     if (item.getName().equals(product.getDsc_produto())) {
                         item.addQuantity();
                         found = true;
@@ -112,17 +109,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (!found) {
-                    selectedProducts.add(new SelectedProducts(product.getDsc_produto(), Double.parseDouble(product.getValor())));
+                    selectedProducts.addItem(new Item(product.getDsc_produto(), Double.parseDouble(product.getValor())));
                 }
 
-                int quantityProducts = 0;
-                double valorTotal = 0.00;
-                for(int i=0; i<selectedProducts.size(); i++){
-                    quantityProducts += selectedProducts.get(i).getQuantity();
-                    valorTotal += quantityProducts * selectedProducts.get(i).getUnitaryValue();
-                }
-                textTotalValue.setText("R$ "+new DecimalFormat("0.00").format(valorTotal).replace(".", ","));
-                textItens.setText(quantityProducts+" ITENS");
+                textTotalValue.setText("R$ "+new DecimalFormat("0.00").format(selectedProducts.getValorTotal()).replace(".", ","));
+                textItens.setText(selectedProducts.getQuantidadeTotal()+" ITENS");
 
             }
         });

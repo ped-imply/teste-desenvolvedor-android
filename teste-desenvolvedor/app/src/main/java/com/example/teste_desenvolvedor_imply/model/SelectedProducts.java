@@ -1,38 +1,47 @@
 package com.example.teste_desenvolvedor_imply.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SelectedProducts {
 
-    private String name;
-    private Integer quantity;
-    private Double unitaryValue;
+    List<Item> itens;
+    Double valorTotal;
+    Integer quantidadeTotal;
 
-    public SelectedProducts(String name, Double unitaryValue) {
-        this.name = name;
-        this.quantity = 1;
-        this.unitaryValue = unitaryValue;
+    public SelectedProducts() {
+        this.itens = new ArrayList<>();
+        this.valorTotal = 0.00;
+        this.quantidadeTotal = 0;
     }
 
-    public String getName() {
-        return name;
+    public List<Item> getItens() {
+        return itens;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void addItem(Item item){
+        itens.add(item);
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public void clearItens() {
+        this.itens.clear();
     }
 
-    public void addQuantity() {
-        this.quantity += 1;
+    public Double getValorTotal() {
+        valorTotal = 0.00;
+        for(Item item : itens){
+            valorTotal += ((double) item.getQuantity()) * item.getUnitaryValue();
+        }
+
+        return valorTotal;
     }
 
-    public Double getUnitaryValue() {
-        return unitaryValue;
+    public Integer getQuantidadeTotal() {
+        quantidadeTotal = 0;
+        for(Item item : itens){
+            quantidadeTotal += item.getQuantity();
+        }
+        return quantidadeTotal;
     }
 
-    public void setUnitaryValue(Double unitaryValue) {
-        this.unitaryValue = unitaryValue;
-    }
 }
