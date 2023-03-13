@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="120dp"
+    android:layout_height="227dp"
+    android:background="@drawable/linear_layout_border"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+
+    <TextView
+        android:id="@+id/textDescProduto"
+        android:layout_width="118dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="13sp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="116dp"
+        android:layout_height="116dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/textValor"
+        android:layout_width="116dp"
+        android:layout_height="35sp"
+        android:textAlignment="center"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

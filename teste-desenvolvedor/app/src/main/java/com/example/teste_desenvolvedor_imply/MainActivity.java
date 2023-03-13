@@ -4,15 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
+import android.widget.TextView;
 
+import com.example.teste_desenvolvedor_imply.adapter.ProductAdapter;
 import com.example.teste_desenvolvedor_imply.api.DataService;
 import com.example.teste_desenvolvedor_imply.model.Imagem;
 import com.example.teste_desenvolvedor_imply.model.Product;
 import com.example.teste_desenvolvedor_imply.model.Response;
+import com.example.teste_desenvolvedor_imply.model.SelectedProducts;
 import com.google.gson.Gson;
 
-import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,15 +32,22 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonBebidas;
     private View activeLanches;
     private View activeBebidas;
-
-    private Button buttonConfirmar;
+    private GridView gridView;
     private List<Product> products;
+    private List<Product> bebidas;
+    private List<Product> lanches;
+    private List<SelectedProducts> selectedProducts;
+    private String chosenTab;
     private Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        gridView = findViewById(R.id.gridView);
+        bebidas = new ArrayList<>();
+        lanches = new ArrayList<>();
+        selectedProducts = new ArrayList<>();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://ah.we.imply.com/cashless/")
@@ -48,20 +61,76 @@ public class MainActivity extends AppCompatActivity {
         activeBebidas = findViewById(R.id.activeBebidas);
         activeLanches = findViewById(R.id.activeLanches);
 
-        buttonConfirmar = findViewById(R.id.buttonConfirmar);
+        Button buttonConfirmar = findViewById(R.id.buttonConfirmar);
+        Button buttonLimpar = findViewById(R.id.buttonLimpar);
+        TextView textItens = findViewById(R.id.textItens);
+        TextView textTotalValue = findViewById(R.id.textTotalValue);
 
         buttonLanches.setOnClickListener(view -> {
             activeBebidas.setVisibility(View.INVISIBLE);
             activeLanches.setVisibility(View.VISIBLE);
+
+            ProductAdapter adapter = new ProductAdapter(lanches,getApplicationContext());
+            gridView.setAdapter(adapter);
+            chosenTab = "Lanches";
         });
 
         buttonBebidas.setOnClickListener(view -> {
             activeLanches.setVisibility(View.INVISIBLE);
             activeBebidas.setVisibility(View.VISIBLE);
+
+            ProductAdapter adapter = new ProductAdapter(bebidas,getApplicationContext());
+            gridView.setAdapter(adapter);
+            chosenTab = "Bebidas";
         });
 
         buttonConfirmar.setOnClickListener(view -> {
             System.out.println("Confirmar");
+            for(int i=0; i<selectedProducts.size(); i++){
+                System.out.println(selectedProducts.get(i).getName()+" - "+selectedProducts.get(i).getQuantity()+" - Size: "+selectedProducts.size());
+            }
+        });
+
+        buttonLimpar.setOnClickListener(view -> {
+            selectedProducts.clear();
+            textTotalValue.setText("R$ 0,00");
+            textItens.setText("0 ITENS");
+        });
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Product product;
+                if(chosenTab.contains("Bebidas"))
+                    product = bebidas.get(position);
+                else
+                    product = lanches.get(position);
+
+                boolean found = false;
+                for (SelectedProducts item : selectedProducts) {
+                    if (item.getName().equals(product.getDsc_produto())) {
+                        item.addQuantity();
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    selectedProducts.add(new SelectedProducts(product.getDsc_produto(), Double.parseDouble(product.getValor())));
+                }
+
+                int quantityProducts = 0;
+                double valorTotal = 0.00;
+                for(int i=0; i<selectedProducts.size(); i++){
+                    System.out.println(selectedProducts.get(i).getName()+" - "+selectedProducts.get(i).getQuantity()+" - Size: "+selectedProducts.size());
+                    quantityProducts += selectedProducts.get(i).getQuantity();
+
+                    valorTotal += quantityProducts * selectedProducts.get(i).getUnitaryValue();
+
+                }
+                textTotalValue.setText("R$ "+new DecimalFormat("0.00").format(valorTotal).replace(".", ","));
+                textItens.setText(quantityProducts+" ITENS");
+
+            }
         });
 
     }
@@ -78,13 +147,22 @@ public class MainActivity extends AppCompatActivity {
                     Response responseApi = response.body();
                     Gson gson = new Gson();
                     products = responseApi.getResult().getProducts();
+
                     for(int i = 0; i<products.size(); i++){
                         Imagem imagem = gson.fromJson(products.get(i).getImagem(), Imagem.class);
                         products.get(i).setDadosImagem(imagem);
-                        Product product = products.get(i);
 
-                        System.out.println("base64: "+product.getDadosImagem().getFilename());
+                        Product product = products.get(i);
+                        if(product.getDsc_produto_cat().contains("Bebidas"))
+                            bebidas.add(product);
+                        if(product.getDsc_produto_cat().contains("Lanches"))
+                            lanches.add(product);
                     }
+
+                    chosenTab = "Bebidas";
+                    ProductAdapter adapter = new ProductAdapter(bebidas,getApplicationContext());
+                    gridView.setAdapter(adapter);
+
                 }
             }
 
