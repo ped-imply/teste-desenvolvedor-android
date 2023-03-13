@@ -6,9 +6,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private String chosenTab;
     private Retrofit retrofit;
     private Gson gson;
+    ProgressBar progressBar;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         View activeBebidas = findViewById(R.id.activeBebidas);
         View activeLanches = findViewById(R.id.activeLanches);
         gridView = findViewById(R.id.gridView);
+        progressBar = findViewById(R.id.progressBar);
 
         bebidas = new ArrayList<>();
         lanches = new ArrayList<>();
@@ -104,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
 
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             Product product;
+
+            TextView textQuantidadeProduto = view.findViewById(R.id.textQuantidadeProduto);
+            textQuantidadeProduto.setVisibility(View.VISIBLE);
+
             if(chosenTab.contains("Bebidas"))
                 product = bebidas.get(position);
             else
@@ -113,11 +119,18 @@ public class MainActivity extends AppCompatActivity {
             for (Item item : selectedProducts.getItens()) {
                 if (item.getName().equals(product.getDsc_produto())) {
                     item.addQuantity();
+                    System.out.println(item.getQuantity().toString());
+                    textQuantidadeProduto.setText(String.valueOf(item.getQuantity()));
                     found = true;
                     break;
                 }
             }
+
+
+
             if (!found) {
+                textQuantidadeProduto.setText("1");
+                System.out.println("aaaa");
                 selectedProducts.addItem(new Item(product.getDsc_produto(), Double.parseDouble(product.getValor())));
             }
 
@@ -153,13 +166,13 @@ public class MainActivity extends AppCompatActivity {
                     chosenTab = "Bebidas";
                     ProductAdapter adapter = new ProductAdapter(bebidas,getApplicationContext());
                     gridView.setAdapter(adapter);
-
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
-
+                progressBar.setVisibility(View.GONE);
             }
         });
 
