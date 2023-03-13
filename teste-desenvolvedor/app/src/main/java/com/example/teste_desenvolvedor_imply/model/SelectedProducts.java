@@ -1,9 +1,10 @@
 package com.example.teste_desenvolvedor_imply.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectedProducts {
+public class SelectedProducts implements Serializable {
 
     List<Item> itens;
     Double valorTotal;

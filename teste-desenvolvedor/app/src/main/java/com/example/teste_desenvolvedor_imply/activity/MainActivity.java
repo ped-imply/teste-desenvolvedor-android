@@ -1,14 +1,17 @@
-package com.example.teste_desenvolvedor_imply;
+package com.example.teste_desenvolvedor_imply.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.teste_desenvolvedor_imply.R;
 import com.example.teste_desenvolvedor_imply.adapter.ProductAdapter;
 import com.example.teste_desenvolvedor_imply.api.DataService;
 import com.example.teste_desenvolvedor_imply.model.Imagem;
@@ -38,11 +41,13 @@ public class MainActivity extends AppCompatActivity {
     private SelectedProducts selectedProducts;
     private String chosenTab;
     private Retrofit retrofit;
+    private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        gson = new Gson();
         gridView = findViewById(R.id.gridView);
         bebidas = new ArrayList<>();
         lanches = new ArrayList<>();
@@ -83,7 +88,14 @@ public class MainActivity extends AppCompatActivity {
             chosenTab = "Bebidas";
         });
 
-        buttonConfirmar.setOnClickListener(view -> System.out.println("Confirmar"));
+        buttonConfirmar.setOnClickListener(view -> {
+            if(selectedProducts.getItens().size()>=1){
+                Intent intent = new Intent(MainActivity.this, TelaExtrato.class);
+                intent.putExtra("products", gson.toJson(selectedProducts));
+                startActivity(intent);
+            }else
+                Toast.makeText(getApplicationContext(), "Você precisa adicionar pelo menos 1 item em sua lista!", Toast.LENGTH_SHORT).show();
+        });
 
         buttonLimpar.setOnClickListener(view -> {
             selectedProducts.clearItens();
@@ -130,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                 if(response.isSuccessful()){
                     Response responseApi = response.body();
-                    Gson gson = new Gson();
                     products = responseApi.getResult().getProducts();
 
                     for(int i = 0; i<products.size(); i++){

@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background_limpar">#CCAF09</color>
     <color name="background_confirmar">#04851A</color>
+    <color name="grey_low">#ACACAC</color>
+    <color name="grey_low_low">#C0C7CD</color>
+    <color name="gray_high">#2E3133</color>
 </resources>
