@@ -1,7 +1,5 @@
 package com.example.teste_desenvolvedor_imply.model;
 
-import java.io.Serializable;
-
 public class Item {
 
 

@@ -1,5 +1,6 @@
 package com.example.teste_desenvolvedor_imply.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,8 @@ import java.util.List;
 
 public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ViewHolder> {
 
-    private List<Item> itemList;
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    private final List<Item> itemList;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemTextView;
         TextView quantityTextView;
         TextView unitPriceTextView;
@@ -45,6 +46,7 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ViewHold
         return new ViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ExtratoAdapter.ViewHolder holder, int position) {
         Item item = itemList.get(position);

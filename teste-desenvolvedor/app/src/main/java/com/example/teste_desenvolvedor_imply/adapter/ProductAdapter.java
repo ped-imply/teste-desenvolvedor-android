@@ -19,8 +19,8 @@ import java.util.List;
 
 public class ProductAdapter extends BaseAdapter {
 
-        private List<Product> products;
-        private Context context;
+        private final List<Product> products;
+        private final Context context;
 
         public ProductAdapter(List<Product> product, Context context) {
             this.products = product;

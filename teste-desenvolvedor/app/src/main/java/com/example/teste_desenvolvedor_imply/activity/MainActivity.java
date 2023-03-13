@@ -2,6 +2,7 @@ package com.example.teste_desenvolvedor_imply.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private Retrofit retrofit;
     private Gson gson;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,30 +102,27 @@ public class MainActivity extends AppCompatActivity {
             textItens.setText("0 ITENS");
         });
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Product product;
-                if(chosenTab.contains("Bebidas"))
-                    product = bebidas.get(position);
-                else
-                    product = lanches.get(position);
+        gridView.setOnItemClickListener((parent, view, position, id) -> {
+            Product product;
+            if(chosenTab.contains("Bebidas"))
+                product = bebidas.get(position);
+            else
+                product = lanches.get(position);
 
-                boolean found = false;
-                for (Item item : selectedProducts.getItens()) {
-                    if (item.getName().equals(product.getDsc_produto())) {
-                        item.addQuantity();
-                        found = true;
-                        break;
-                    }
+            boolean found = false;
+            for (Item item : selectedProducts.getItens()) {
+                if (item.getName().equals(product.getDsc_produto())) {
+                    item.addQuantity();
+                    found = true;
+                    break;
                 }
-                if (!found) {
-                    selectedProducts.addItem(new Item(product.getDsc_produto(), Double.parseDouble(product.getValor())));
-                }
-
-                textTotalValue.setText("R$ "+new DecimalFormat("0.00").format(selectedProducts.getValorTotal()).replace(".", ","));
-                textItens.setText(selectedProducts.getQuantidadeTotal()+" ITENS");
             }
+            if (!found) {
+                selectedProducts.addItem(new Item(product.getDsc_produto(), Double.parseDouble(product.getValor())));
+            }
+
+            textTotalValue.setText("R$ "+new DecimalFormat("0.00").format(selectedProducts.getValorTotal()).replace(".", ","));
+            textItens.setText(selectedProducts.getQuantidadeTotal()+" ITENS");
         });
 
     }
